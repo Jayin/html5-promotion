@@ -24,7 +24,7 @@
                         <td>{$l.version}</td>
                         <td><a href="{$l.project_url}" target="_blank">{$l.project_url}</a></td>
                         <td>{$l.create_time}</td>
-                        <td><a href="">编辑</a></td>
+                        <td><a href="{:U('/Project/edit/')}?project_name={$l.project_name}">编辑</a></td>
                     </tr>
                 </foreach>
             </tbody>

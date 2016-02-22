@@ -23,11 +23,34 @@ class ProjectController extends Controller{
 
 			}
 		}
-
 		$this->assign('title',"游戏列表");
 		$this->assign('project_list',"active"); //菜单样式显示
 		$this->assign('game_list',$game_list); //扫描到的游戏列表
 		$this->display('list');
 	}
 
+	/**
+	* 项目编辑
+	* @param project_name 项目目录名称
+	*/
+
+	public function edit($project_name){
+		if(File::read_file(PROJECT_DIR."/".$project_name."/"."config.json")){
+			//如果存在源项目，则将源项目复制过去
+			if(!File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"))
+				//如果目的项目已经存在编辑，则不覆盖
+				File::copy_dir(PROJECT_DIR."/".$project_name,PROJECT_DEV_DIR."/".$project_name);
+		}else{
+			$this->error("找不到该项目");
+		}
+		$config=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"),1); //获取指定配置信息
+		$info=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."game_info.json"),1); //获取指定项目信息
+		$visit_url="http://".$_SERVER['SERVER_NAME'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
+
+		$this->assign('visit_url',$visit_url);
+		$this->assign('project_list',"active"); //菜单样式显示
+		$this->assign('config',$config);
+		$this->assign('info',$info);
+		$this->display("edit");
+	}
 }

@@ -1,0 +1,47 @@
+<include file="common/header" />
+<div class="panel panel-default">
+    <div class="panel-heading">编辑：{$config.name}
+        <div class="columns  pull-right">
+            <a href="{:U('/Project/list')}" class="btn btn-default"> 返回</a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <iframe src="{$visit_url}/{$config.visit_file}" style="width: 100%;height: 640px;"></iframe>
+            </div>
+            <div class="col-md-8">
+                <div class="tabs" style="border: 1px solid #eee;">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab">图片</a></li>
+                        <!-- <li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
+<li><a href="#tab3" data-toggle="tab">Tab 3</a></li> -->
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1">
+                            <foreach name="info.images" item="v">
+                                <div>
+                                    <h4>{$v.info}：{$v.file_name}</h4>
+                                    <p>
+                                        <img src="{$visit_url}/{$v.path}" style="width: 200px;">
+                                    </p>
+                                    <p>大小：{$v.size}</p>
+                                </div>
+                                <hr>
+                            </foreach>
+                        </div>
+                        <!-- <div class="tab-pane fade" id="tab2">
+    <h4>Tab 2</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+</div>
+<div class="tab-pane fade" id="tab3">
+    <h4>Tab 3</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="common/footer">
