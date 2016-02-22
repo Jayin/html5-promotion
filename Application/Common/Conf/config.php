@@ -17,4 +17,6 @@ return array(
 	'db_name' => 'html5', // 数据库名称
 	'db_user' => 'html5', // 主机名
 	'db_pwd' => 'html5', // 密码
+
+	'PROJECT_DIR' => APP_PATH . "../Project",
 );
