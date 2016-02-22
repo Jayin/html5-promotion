@@ -21,11 +21,21 @@
                         <div class="tab-pane fade in active" id="tab1">
                             <foreach name="info.images" item="v">
                                 <div>
-                                    <h4>{$v.info}：{$v.file_name}</h4>
+                                    <h4>{$v.info}：{$v.file_name}.{$v.file_ext}</h4>
                                     <p>
-                                        <img src="{$visit_url}/{$v.path}" style="width: 200px;">
+                                        <img src="{$visit_url}/{$v.path}{$v.file_name}.{$v.file_ext}" style="width: 200px;">
                                     </p>
-                                    <p>大小：{$v.size}</p>
+                                    <p>大小：{$v.size} <span style="color:red;">ps:只允许相同后缀名</span></p>
+                                    <div>
+                                        <form action="{:U('/Project/upload_img')}" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="project_name" value="{$config.project_name}">
+                                            <input type="hidden" name="img_path" value="{$v.path}">
+                                            <input type="hidden" name="img_name" value="{$v.file_name}">
+                                            <input type="hidden" name="img_ext" value="{$v.file_ext}">
+                                            <input type="file" class="form-control" name="new_img">
+                                            <button class="btn btn-success" onclick="return confirm('确认更新')">更新</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <hr>
                             </foreach>

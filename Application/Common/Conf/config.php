@@ -18,9 +18,9 @@ return array(
 	'db_user' => 'html5', // 主机名
 	'db_pwd' => 'html5', // 密码
 
-	'PROJECT_DIR' => APP_PATH . "../Project", //项目模板存放路径
+	'PROJECT_DIR' => APP_ROOT_PATH . "/Project", //项目模板存放路径
 	'PROJECT_NAME' => "Project", //项目目录名称
-	'PROJECT_DEV_DIR' => APP_PATH . "../Project_dev", //编辑项目存放路径
+	'PROJECT_DEV_DIR' => APP_ROOT_PATH . "/Project_dev", //编辑项目存放路径
 	'PROJECT_DEV_NAME' => "/Project_dev", //编辑项目目录名称
 
 );
