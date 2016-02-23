@@ -47,7 +47,7 @@ class ProjectController extends Controller{
 		$info=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."game_info.json"),1); //获取指定项目信息
 		$visit_url="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
         if(!$edit_page){
-            $edit_page = $config['edit_page'][0]['page'];
+            $edit_page = $config['edit_page'][0]['id'];
         }
         $this->assign('edit_page', $edit_page);
 		$this->assign('visit_url',$visit_url);

@@ -1,5 +1,5 @@
 {
-    "index.html": {
+    "index": {
         "images": [
             {
                 "file_name": "title",
@@ -10,10 +10,10 @@
             }
         ]
     },
-    "mobile.html": {
+    "mobile": {
         
     },
-    "future.html": {
+    "future": {
         
     }
 }

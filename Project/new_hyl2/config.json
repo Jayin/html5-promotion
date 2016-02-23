@@ -6,9 +6,9 @@
 	"project_name": "new_hyl2",
 	"create_time": "2016-02-22",
     "update_time": "2016-02-23",
-	"visit_file": "index.htm",
     "edit_page": [
         {
+            "id": "index",
             "name": "首页",
             "page": "index.htm"
         }
