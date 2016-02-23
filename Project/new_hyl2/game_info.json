@@ -1,0 +1,33 @@
+{
+	"images": [{
+		"file_name": "1",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "游戏说明，点击开始图片",
+		"size": "540 * 540 "
+	}, {
+		"file_name": "bg",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "背景图片",
+		"size": "640 * 1130 "
+	}, {
+		"file_name": "bgbg1",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "文字提示框背景图片",
+		"size": "540 * 540 "
+	}, {
+		"file_name": "bufu",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "不服重来按钮",
+		"size": "150*150 "
+	}, {
+		"file_name": "gaodiao",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "高调转发按钮",
+		"size": "150*150 "
+	}]
+}

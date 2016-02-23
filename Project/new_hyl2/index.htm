@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>十五的月亮十六圆，比比谁画的月亮更圆？</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/play68_sdk.js"></script>
+    <script language="javascript" type="text/javascript" src="js/play68.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" language="JavaScript">
+    function HideContent(d) {
+        $('#' + d).hide();
+    }
+
+    function ShowContent(d) {
+        $('#' + d).show(1000);
+    }
+    </script>
+    <script type="text/javascript" src="js/cookies.js"></script>
+    <script src="js/paper-full.min.js"></script>
+    <script type="text/paperscript" canvas="canvas" src="js/circle_origin.js"></script>
+</head>
+
+<body style="background-image: url(img/bg.png); background-size: 100% 100%; background-repeat: no-repeat;">
+    <canvas id="canvas" resize="" stats="" hidpi="on"></canvas>
+    <div id="start" style="text-align: center; height: 826px;">
+        <img style="width:90%; margin-top:20%" src="img/1.png">
+    </div>
+    <div class="draw_yuan">
+        <div class="draw_txt">
+        </div>
+        <input type="hidden" name="score" id="score" value="">
+        <img src="img/bufu.png" class="nofugo" id="nofugo"> </img>
+        <img src="img/gaodiao.png" class="nofufs" onclick="share_3366()"></img>
+        <!-- <div class="gzwxin"><img src="img/erweima.png"></div> -->
+        <div id="game3366" style="position:absolute; z-index:99; bottom:40px; left:0px; width:100%; text-align:center;">
+            <a href="javascript:void(0);" style="padding: 8px 20px;background-color: #fff;border-radius: 5px;text-decoration: none;color:black;" onclick="more_3366();">更多游戏</a>
+        </div>
+    </div>
+    <script>
+    //var shareUrl="http://1152729379.g.68uxi.com/?r=play/game/sgid/117036&site_code=play68com";
+    //Play68.set_share_url(shareUrl);
+    //(function(){play68_init();})();
+
+    function more_3366() {
+        window.location.href = "http://m.html5youxi.com";
+    }
+    var myScore;
+    var loading = true;
+
+    function share_3366() {
+        document.getElementById("share").style.display = "block";
+    }
+    window.shareData = {
+        title: "画月亮", // 分享标题
+        link: "http://game.html5youxi.com/201501/new_hyl2/", // 分享链接
+        imgUrl: 'http://game.html5youxi.com/201501/new_hyl2/icon.png', // 分享图标
+        desc: "十五的月亮十六圆，比比谁画的月亮更圆？"
+    };
+    </script>
+    <div id="share" style="display: none;">
+        <img width="100%" src="image/share.png" style="position: fixed; z-index: 9999; top: 0; left: 0; display: " onclick="document.getElementById('share').style.display='none';">
+    </div>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="js/common2.js"></script>
+    <div class="" style="display:none;">
+    </div>
+</body>
+
+</html>
