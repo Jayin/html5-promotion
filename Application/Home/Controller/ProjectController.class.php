@@ -53,7 +53,7 @@ class ProjectController extends Controller{
 		$this->assign('visit_url',$visit_url);
 		$this->assign('project_list',"active"); //菜单样式显示
 		$this->assign('config',$config);
-		$this->assign('info',$info);
+		$this->assign('info',$info[$edit_page]);
 		$this->display("edit");
 	}
   

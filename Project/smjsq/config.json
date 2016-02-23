@@ -2,9 +2,25 @@
 	"name": "生命计算器",
 	"description": "你已经存在这个世界多久？未来你会有多少的光阴？一次简单的计算，让我们更懂珍惜。",
 	"version": "0.0.1",
-	"project_url": "/html5-promotion/Project/smjsq/index.html",
+    "preview_file": "index.html",
 	"project_name": "smjsq",
 	"create_time": "2016-02-23",
-  "update_time": "2016-02-23",
-	"visit_file": "index.html"
+    "update_time": "2016-02-23",
+    "edit_page": [
+        {
+            "name": "首页",
+            "page": "index.html",
+            "path": ""
+        },
+          {
+            "name": "计算结果第1页",
+            "page": "mobile.htm",
+            "path": ""
+        },
+          {
+            "name": "计算结果第2页",
+            "page": "future.htm",
+            "path": ""
+        }
+    ]
 }
