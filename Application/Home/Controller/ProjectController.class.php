@@ -4,7 +4,7 @@ use Think\Controller;
 use Common\Lib\File;
 
 class ProjectController extends Controller{
-
+    
 	/**
 	* 显示项目列表
 	*/
@@ -45,7 +45,7 @@ class ProjectController extends Controller{
 		}
 		$config=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"),1); //获取指定配置信息
 		$info=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."game_info.json"),1); //获取指定项目信息
-		$visit_url="http://".$_SERVER['SERVER_NAME'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
+		$visit_url="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
 
 		$this->assign('visit_url',$visit_url);
 		$this->assign('project_list',"active"); //菜单样式显示
@@ -53,7 +53,6 @@ class ProjectController extends Controller{
 		$this->assign('info',$info);
 		$this->display("edit");
 	}
-
 
 	/**
 	* 更新项目中的图片
