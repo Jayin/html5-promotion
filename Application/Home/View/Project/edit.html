@@ -17,9 +17,9 @@
             <div class="col-md-8">
                 <div class="tabs" style="border: 1px solid #eee;">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1" data-toggle="tab">图片</a></li>
-                        <!-- <li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
-<li><a href="#tab3" data-toggle="tab">Tab 3</a></li> -->
+                        <foreach name="config.edit_page" item="page">
+                            <li role="presentation" class="<?= $page['page'] == $edit_page ?'active':''; ?>"><a href="<?= U('Project/edit/project_name/'.$config['project_name'].'/edit_page/'.$page['page']); ?>">{$page.name}</a></li>
+                        </foreach>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab1">

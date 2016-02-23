@@ -6,5 +6,19 @@
 	"project_name": "new_hyl2",
 	"create_time": "2016-02-22",
     "update_time": "2016-02-23",
-	"visit_file": "index.htm"
+	"visit_file": "index.htm",
+    "edit_page": [
+        {
+            "name": "首页",
+            "page": "index.htm"
+        },
+         {
+            "name": "活动页",
+            "page": "acty.htm"
+        },
+         {
+            "name": "分享页",
+            "page": "share.htm"
+        }
+    ]
 }
