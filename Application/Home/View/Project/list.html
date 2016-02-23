@@ -13,6 +13,7 @@
                     <th>版本</th>
                     <th>项目地址</th>
                     <th>创建时间</th>
+                    <th>最后更新</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                         <td>{$l.version}</td>
                         <td><a href="{$l.project_url}" target="_blank">{$l.project_url}</a></td>
                         <td>{$l.create_time}</td>
+                        <td>{$l.update_time}</td>
                         <td><a href="{:U('/Project/edit/')}?project_name={$l.project_name}">编辑</a></td>
                     </tr>
                 </foreach>

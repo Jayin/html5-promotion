@@ -2,8 +2,9 @@
 	"name": "画圆圈",
 	"description": "这是一个画圆圈检查圆圈的匹配程度的，微信推广",
 	"version": "0.0.1",
-	"project_url": "http://127.0.0.1/html5/Project/new_hyl2/index.htm",
+	"project_url": "/html5-promotion/Project/new_hyl2/index.htm",
 	"project_name": "new_hyl2",
 	"create_time": "2016-02-22",
+    "update_time": "2016-02-23",
 	"visit_file": "index.htm"
 }
