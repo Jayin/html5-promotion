@@ -1,3 +1,9 @@
 {
-	"images": []
+	"images": [{
+		"file_name": "title",
+		"file_ext": "png",
+		"path": "img/",
+		"info": "首页标题",
+		"size": "112 × 561"
+	}]
 }
