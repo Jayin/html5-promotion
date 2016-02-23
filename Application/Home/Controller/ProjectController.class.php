@@ -33,7 +33,6 @@ class ProjectController extends Controller{
 	* 项目编辑
 	* @param project_name 项目目录名称
 	*/
-
 	public function edit($project_name){
 		if(File::read_file(PROJECT_DIR."/".$project_name."/"."config.json")){
 			//如果存在源项目，则将源项目复制过去
@@ -53,11 +52,17 @@ class ProjectController extends Controller{
 		$this->assign('info',$info);
 		$this->display("edit");
 	}
+  
+  //项目编辑重置  
+  public function reset($project_name){
+    //del_dir
+    File::del_dir(PROJECT_DEV_DIR."/".$project_name);
+    $this->redirect('edit',array("project_name"=>$project_name));
+  }
 
 	/**
 	* 更新项目中的图片
 	*/
-
 	public function upload_img(){
 		$project_name=I("project_name");
 		$img_path=I("img_path");

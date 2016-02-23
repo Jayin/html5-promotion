@@ -2,7 +2,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">编辑：{$config.name}
         <div class="columns  pull-right">
-            <a href="{:U('/Project/list')}" class="btn btn-default"> 返回</a>
+            <a href="{:U('/Project/reset/project_name/'.$config['project_name'])}" class="btn btn-primary">重置</a>
+            <a href="{:U('/Project/listProject')}" class="btn btn-btn-default">返回</a>
         </div>
     </div>
     <div class="panel-body">
@@ -26,7 +27,7 @@
                                 <div>
                                     <h4>{$v.info}：{$v.file_name}.{$v.file_ext}</h4>
                                     <p>
-                                        <img src="{$visit_url}/{$v.path}{$v.file_name}.{$v.file_ext}" style="width: 200px;">
+                                        <img src="{$visit_url}/{$v.path}{$v.file_name}.{$v.file_ext}" style="height: 200px;">
                                     </p>
                                     <p>大小：{$v.size} <span style="color:red;">ps:只允许相同后缀名</span></p>
                                     <div>
