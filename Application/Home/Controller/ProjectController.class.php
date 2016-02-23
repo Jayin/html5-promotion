@@ -26,7 +26,7 @@ class ProjectController extends Controller{
 		$this->assign('title',"游戏列表");
 		$this->assign('project_list',"active"); //菜单样式显示
 		$this->assign('game_list',$game_list); //扫描到的游戏列表
-		$this->display('list');
+		$this->display('listproject');
 	}
 
 	/**
