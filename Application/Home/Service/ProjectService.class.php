@@ -15,9 +15,18 @@ class ProjectService {
     }
 
     //======== COMMON
-
+    /**
+     * 把h5项目从PROJECT_DIR复制到PROJECT_DEV_DIR
+     * @param $project_name
+     */
     public static function projectCopyToDev($project_name) {
         File::copy_dir(C('PROJECT_DIR') . "/" . $project_name, C('PROJECT_DEV_DIR') . "/" . $project_name);
+    }
+
+    public static function updateText($project_name, $file, $regex, $text){
+        $content = File::read_file(C('PROJECT_DIR').'/'.$project_name.'/'.$file);
+        $content = preg_replace('/'.addcslashes(quotemeta($regex), '/').'/i',$text, $content);
+        File::write_file(C('PROJECT_DEV_DIR').'/'.$project_name.'/'.$file, $content);
     }
 
     //======== Project

@@ -23,6 +23,10 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab1">
+                            <?php if(count($info['images'])): ?>
+                                <h3>图片设置</h3>
+                            <?php endif; ?>
+
                             <foreach name="info.images" item="v">
                                 <div>
                                     <h4>{$v.info}：{$v.file_name}.{$v.file_ext}</h4>
@@ -43,15 +47,29 @@
                                 </div>
                                 <hr>
                             </foreach>
+
+                            <?php if(count($info['texts'])): ?>
+                                <h3>内容设置</h3>
+                            <?php endif; ?>
+
+                            <foreach name="info.texts" item="v">
+                                <div>
+                                    <p>{$v.name}：{$v.regex}</p>
+                                    <p>替换文件：{$v.file}</p>
+                                    <div>
+                                        <form action="{:U('/Project/updateText')}" method="post" accept-charset="utf-8">
+                                            <input type="hidden" name="project_name" value="{$config.project_name}">
+                                            <input type="hidden" name="regex" value="{$v.regex}">
+                                            <input type="hidden" name="file" value="{$v.file}">
+                                            <input type="hidden" name="edit_page" value="{$edit_page}">
+                                            <input type="text" class="form-control" name="text">
+                                            <button class="btn btn-success" onclick="return confirm('确认更新')">更新</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                            </foreach>
                         </div>
-                        <!-- <div class="tab-pane fade" id="tab2">
-    <h4>Tab 2</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
-</div>
-<div class="tab-pane fade" id="tab3">
-    <h4>Tab 3</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
-</div> -->
                     </div>
                 </div>
             </div>

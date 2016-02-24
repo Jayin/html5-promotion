@@ -83,6 +83,21 @@ class ProjectController extends Controller{
      $this->redirect('edit',array("project_name"=>$project_name));
    }
 
+    /**
+     * 更换文字内容
+     */
+   public function updateText(){
+       $project_name = I('post.project_name');
+       $file = I('post.file');
+       $regex = I('post.regex','','');
+       $text = I('post.text','','');
+       $edit_page = I('post.edit_page');
+
+       ProjectService::updateText($project_name, $file, $regex, $text);
+
+       $this->redirect('edit',array('project_name'=>$project_name, 'edit_page'=>$edit_page));
+   }
+
 	/**
 	* 更新项目中的图片
 	*/
