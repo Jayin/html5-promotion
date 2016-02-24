@@ -45,17 +45,33 @@ class ProjectController extends Controller{
 		}
 		$config=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"),1); //获取指定配置信息
 		$info=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."game_info.json"),1); //获取指定项目信息
-		$visit_url="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
+		
         if(!$edit_page){
             $edit_page = $config['edit_page'][0]['id'];
         }
+        $pageInfo = $this->getPageInfoById($config['edit_page'], $edit_page);
+        //预览url
+        $preview_url="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name.'/'.$pageInfo['page'];
+        //预览根目录
+        $preview_base="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
+        
         $this->assign('edit_page', $edit_page);
-		$this->assign('visit_url',$visit_url);
+		$this->assign('preview_url',$preview_url);
+        $this->assign('preview_base',$preview_base);
 		$this->assign('project_list',"active"); //菜单样式显示
 		$this->assign('config',$config);
 		$this->assign('info',$info[$edit_page]);
 		$this->display("edit");
 	}
+    //获取根据page.id 获取该edit_page信息
+    private function getPageInfoById($pages, $page_id){
+       foreach ($pages as $page) {
+           if($page['id'] === $page_id){
+               return $page;
+           }
+       }
+       return null;
+    }
   
   //项目编辑重置  
   public function reset($project_name){

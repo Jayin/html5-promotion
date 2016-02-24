@@ -9,7 +9,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-4">
-                <iframe src="{$visit_url}/{$config.preview_file}" style="width: 100%;height: 640px;"></iframe>
+                <iframe src="{$preview_url}" style="width: 100%;height: 640px;"></iframe>
                 <p class="text-left">预览：<a href="{$visit_url}/{$config.visit_file}" target="_blank">网页预览</a><small>&nbsp;PS:用Google浏览器然后按F12 用手机模式查看</small></p>
                 <!-- 二维码 -->
                 <img src="{:U('/Common/createQRcode/','','')}?text={$visit_url}/{$config.visit_file}&size=150">
@@ -27,7 +27,7 @@
                                 <div>
                                     <h4>{$v.info}：{$v.file_name}.{$v.file_ext}</h4>
                                     <p>
-                                        <img src="{$visit_url}/{$v.path}{$v.file_name}.{$v.file_ext}" style="height: 200px;">
+                                        <img src="{$preview_base}/{$v.path}{$v.file_name}.{$v.file_ext}" style="height: 200px;">
                                     </p>
                                     <p>大小：{$v.size} <span style="color:red;">ps:只允许相同后缀名</span></p>
                                     <div>
