@@ -74,7 +74,7 @@ class ProjectService {
      * @return json
      */
     public static function readProjectDevConfig($project_name) {
-        return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . self::PROJECT_CONFIG_FILE), 1);
+        return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . C('PROJECT_CONFIG_FILE')), 1);
     }
 
     /**
@@ -83,7 +83,7 @@ class ProjectService {
      * @return json
      */
     public static function readProjectDevInfoConfig($project_name) {
-        return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . self::PROJECT_INFO_FILE), 1);
+        return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . C('PROJECT_INFO_FILE')), 1);
     }
 
 }
