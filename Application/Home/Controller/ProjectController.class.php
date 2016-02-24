@@ -2,11 +2,12 @@
 namespace Home\Controller;
 use Think\Controller;
 use Common\Lib\File;
+use Home\Service\ProjectService;
 
 class ProjectController extends Controller{
     
 	/**
-	* 显示项目列表
+	* 显示项目列表页
 	*/
 	public function listProject(){
 		File::mk_dir($dir);
@@ -29,22 +30,24 @@ class ProjectController extends Controller{
 		$this->display('listproject');
 	}
 
-	/**
-	* 项目编辑
-	* @param project_name 项目目录名称
-	*/
+    /**
+     * 项目编辑页
+     * @param 项目目录名称 $project_name
+     * @param string $edit_page
+     * @internal param 项目目录名称 $project_name
+     */
 	public function edit($project_name, $edit_page=''){
-        
-		if(File::read_file(PROJECT_DIR."/".$project_name."/"."config.json")){
+		if(ProjectService::projectExist($project_name)){
 			//如果存在源项目，则将源项目复制过去
-			if(!File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"))
-				//如果目的项目已经存在编辑，则不覆盖
-				File::copy_dir(PROJECT_DIR."/".$project_name,PROJECT_DEV_DIR."/".$project_name);
+			if(!ProjectService::projectDevtExist($project_name)){
+                //如果目的项目已经存在编辑，则不覆盖
+                ProjectService::projectCopyToDev($project_name);
+            }
 		}else{
 			$this->error("找不到该项目");
 		}
-		$config=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."config.json"),1); //获取指定配置信息
-		$info=json_decode(File::read_file(PROJECT_DEV_DIR."/".$project_name."/"."game_info.json"),1); //获取指定项目信息
+        $config=ProjectService::readProjectConfig($project_name);//获取指定配置信息
+		$info=ProjectService::readProjectInfoConfig($project_name); //获取指定项目信息
 		
         if(!$edit_page){
             $edit_page = $config['edit_page'][0]['id'];
@@ -73,12 +76,12 @@ class ProjectController extends Controller{
        return null;
     }
   
-  //项目编辑重置  
-  public function reset($project_name){
-    //del_dir
-    File::del_dir(PROJECT_DEV_DIR."/".$project_name);
-    $this->redirect('edit',array("project_name"=>$project_name));
-  }
+   //项目编辑重置
+   public function reset($project_name){
+     //del_dir
+     File::del_dir(PROJECT_DEV_DIR."/".$project_name);
+     $this->redirect('edit',array("project_name"=>$project_name));
+   }
 
 	/**
 	* 更新项目中的图片

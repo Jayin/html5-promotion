@@ -22,5 +22,7 @@ return array(
 	'PROJECT_NAME' => "Project", //项目目录名称
 	'PROJECT_DEV_DIR' => APP_ROOT_PATH . "/Project_dev", //编辑项目存放路径
 	'PROJECT_DEV_NAME' => "/Project_dev", //编辑项目目录名称
+    'PROJECT_CONFIG_FILE' => 'config.json', // 配置文件
+    'PROJECT_INFO_FILE' => 'game_info.json' // 配置描述文件
 
 );
