@@ -10,7 +10,6 @@ class ProjectController extends Controller{
 	* 显示项目列表页
 	*/
 	public function listProject(){
-		File::mk_dir($dir);
 		$dirArray = File::get_dirs(PROJECT_DIR);
 
 		$dirList=$dirArray["dir"];
