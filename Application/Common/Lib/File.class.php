@@ -10,33 +10,22 @@
 // +----------------------------------------------------------------------
 namespace Common\Lib;
 class File {
-	/*
-		@function  		创建目录
-
-		@var:$filename  目录名
-
-		@return:   		true
-	*/
-
-	static public function mk_dir($dir) {
-		$dir = rtrim($dir, '/') . '/';
-		if (!is_dir($dir)) {
-			if (mkdir($dir, 0700) == false) {
-				return false;
-			}
-			return true;
-		}
-		return true;
+    /**
+     * 创建目录
+     * @param $dir 目录名
+     * @param int $mode 文件权限
+     * @param bool $recursive 创建子目录，例如"a/b/c"
+     * @return bool 创建成功则为true
+     */
+	static public function mk_dir($dir, $mode = 0777, $recursive = true) {
+        return mkdir($dir, $mode, $recursive);
 	}
 
-	/*
-		@function  		读取文件内容
-
-		@var:$filename  文件名
-
-		@return:   		文件内容
-	*/
-
+    /**
+     * 读取文件内容
+     * @param $filename 文件名
+     * @return string 文件内容
+     */
 	static public function read_file($filename) {
 		$content = '';
 		if (function_exists('file_get_contents')) {
@@ -50,18 +39,13 @@ class File {
 		return $content;
 	}
 
-	/*
-		@function  		写文件
-
-		@var:$filename  文件名
-
-		@var:$writetext 文件内容
-
-		@var:$openmod 	打开方式
-
-		@return:   		成功=true
-	*/
-
+    /**
+     * 写文件
+     * @param $filename 文件名
+     * @param $writetext 文件内容
+     * @param string $openmod 打开方式
+     * @return bool 是否操作成功
+     */
 	static function write_file($filename, $writetext, $openmod = 'w') {
 		if (@$fp = fopen($filename, $openmod)) {
 			flock($fp, 2);
@@ -73,14 +57,11 @@ class File {
 		}
 	}
 
-	/*
-		@function  		删除目录
-
-		@var:$dirName  	原目录
-
-		@return:   		成功=true
-	*/
-
+    /**
+     * 删除目录
+     * @param $dirName 原目录
+     * @return bool 操作是否成功
+     */
 	static function del_dir($dirName) {
 		if (!file_exists($dirName)) {
 			return false;
@@ -101,16 +82,12 @@ class File {
 		return rmdir($dirName);
 	}
 
-	/*
-		@function  		复制目录
-
-		@var:$surDir  	原目录
-
-		@var:$toDir  	目标目录
-
-		@return:   		true
-	*/
-
+    /**
+     * 复制目录
+     * @param $surDir 原目录
+     * @param $toDir 目标目录
+     * @return bool 操作是否成功
+     */
 	static function copy_dir($surDir, $toDir) {
 		$surDir = rtrim($surDir, '/') . '/';
 		$toDir = rtrim($toDir, '/') . '/';
@@ -137,16 +114,12 @@ class File {
 		return true;
 	}
 
-	/*
-		@function  列出目录
-
-		@var:$dir  目录名
-
-		@return:   目录数组
-
-		列出文件夹下内容，返回数组 $dirArray['dir']:存文件夹；$dirArray['file']：存文件
-	*/
-
+    /**
+     * 列出目录
+     * 列出文件夹下内容，返回数组 $dirArray['dir']:存文件夹；$dirArray['file']：存文件
+     * @param $dir 目录名
+     * @return array 目录数组
+     */
 	static function get_dirs($dir) {
 		$dir = rtrim($dir, '/') . '/';
 		$dirArray[][] = NULL;
@@ -168,14 +141,11 @@ class File {
 		return $dirArray;
 	}
 
-	/*
-		@function  统计文件夹大小
-
-		@var:$dir  目录名
-
-		@return:   文件夹大小(单位 B)
-	*/
-
+    /**
+     * 统计文件夹大小
+     * @param $dir 目录名
+     * @return int 文件夹大小(单位 B)
+     */
 	static function get_size($dir) {
 		$dirlist = opendir($dir);
 		$dirsize = 0;
@@ -192,32 +162,23 @@ class File {
 		return $dirsize;
 	}
 
-	/*
-		@function  检测是否为空文件夹
-
-		@var:$dir  目录名
-
-		@return:   存在则返回true
-	*/
-
+    /**
+     * 检测是否为空文件夹
+     * @param $dir 目录名
+     * @return bool 存在则返回true
+     */
 	static function empty_dir($dir) {
 		return (($files = @scandir($dir)) && count($files) <= 2);
 	}
 
-	/*
-		@function  文件缓存与文件读取
-
-		@var:$name  文件名
-
-		@var:$value  文件内容,为空则获取缓存
-
-		@var:$path   文件所在目录,默认是当前应用的DATA目录
-
-		@var:$cached  是否缓存结果,默认缓存
-
-		@return:   返回缓存内容
-	*/
-
+    /**
+     * 文件缓存与文件读取
+     * @param $name 文件名
+     * @param string $value 文件内容,为空则获取缓存
+     * @param string $path 文件所在目录,默认是当前应用的DATA目录
+     * @param bool $cached 是否缓存结果,默认缓存
+     * @return array|bool|int|mixed|string  返回缓存内容
+     */
 	function cache($name, $value = '', $path = DATA_PATH, $cached = true) {
 		static $_cache = array();
 		$filename = $path . $name . '.php';
