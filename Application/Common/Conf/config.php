@@ -18,11 +18,13 @@ return array(
 	'db_user' => 'html5', // 主机名
 	'db_pwd' => 'html5', // 密码
 
+    //==== Project config
 	'PROJECT_DIR' => APP_ROOT_PATH . "/Project", //项目模板存放路径
 	'PROJECT_NAME' => "Project", //项目目录名称
 	'PROJECT_DEV_DIR' => APP_ROOT_PATH . "/Project_dev", //编辑项目存放路径
 	'PROJECT_DEV_NAME' => "Project_dev", //编辑项目目录名称
     'PROJECT_CONFIG_FILE' => 'config.json', // 配置文件
-    'PROJECT_INFO_FILE' => 'game_info.json' // 配置描述文件
-
+    'PROJECT_INFO_FILE' => 'game_info.json', // 配置描述文件
+    'PROJECT_PACKAGE_DIR' => APP_ROOT_PATH . '/Package', //打包目录
+    'PROJECT_PACKAGE_NAME' => 'Package' //打包目录名称
 );

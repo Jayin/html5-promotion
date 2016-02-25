@@ -3,6 +3,7 @@
 namespace Home\Service;
 
 use Common\Lib\File;
+use Common\Lib\Zip;
 
 /**
  * Class ProjectService
@@ -18,15 +19,34 @@ class ProjectService {
     /**
      * 把h5项目从PROJECT_DIR复制到PROJECT_DEV_DIR
      * @param $project_name
+     * @return bool
      */
     public static function projectCopyToDev($project_name) {
-        File::copy_dir(C('PROJECT_DIR') . "/" . $project_name, C('PROJECT_DEV_DIR') . "/" . $project_name);
+        return File::copy_dir(C('PROJECT_DIR') . "/" . $project_name, C('PROJECT_DEV_DIR') . "/" . $project_name);
     }
 
-    public static function updateText($project_name, $file, $regex, $text){
-        $content = File::read_file(C('PROJECT_DIR').'/'.$project_name.'/'.$file);
-        $content = preg_replace('/'.addcslashes(quotemeta($regex), '/').'/i',$text, $content);
-        File::write_file(C('PROJECT_DEV_DIR').'/'.$project_name.'/'.$file, $content);
+    /**
+     * 替换文件内容
+     * @param $project_name
+     * @param $file
+     * @param $regex
+     * @param $text
+     * @return bool
+     */
+    public static function updateText($project_name, $file, $regex, $text) {
+        $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
+        $content = preg_replace('/' . addcslashes(quotemeta($regex), '/') . '/i', $text, $content);
+        return File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+    }
+
+    /**
+     * @param $project_name
+     * @return bool
+     */
+    public static function package($project_name) {
+        $create_date = date('YmdHis');
+        File::copy_dir(C('PROJECT_DEV_DIR') . '/' . $project_name, C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date);
+        Zip::pack(C('PROJECT_DEV_DIR') . '/' . $project_name, C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date . '.zip');
     }
 
     //======== Project

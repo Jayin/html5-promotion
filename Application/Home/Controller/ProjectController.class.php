@@ -1,33 +1,34 @@
 <?php
 namespace Home\Controller;
+
 use Think\Controller;
 use Common\Lib\File;
 use Home\Service\ProjectService;
 
-class ProjectController extends Controller{
-    
-	/**
-	* 显示项目列表页
-	*/
-	public function listProject(){
-		$dirArray = File::get_dirs(PROJECT_DIR);
+class ProjectController extends Controller {
 
-		$dirList=$dirArray["dir"];
+    /**
+     * 显示项目列表页
+     */
+    public function listProject() {
+        $dirArray = File::get_dirs(PROJECT_DIR);
 
-		$game_list=array();
-		foreach ($dirList as $key => $value) {
-			$config=File::read_file(PROJECT_DIR."/".$value."/config.json");
-			if($config){
-				//如果存在config.json 文件则读出
-				$game_list[$value]=json_decode($config,1);
+        $dirList = $dirArray["dir"];
 
-			}
-		}
-		$this->assign('title',"游戏列表");
-		$this->assign('project_list',"active"); //菜单样式显示
-		$this->assign('game_list',$game_list); //扫描到的游戏列表
-		$this->display('listproject');
-	}
+        $game_list = array();
+        foreach ($dirList as $key => $value) {
+            $config = File::read_file(PROJECT_DIR . "/" . $value . "/config.json");
+            if ($config) {
+                //如果存在config.json 文件则读出
+                $game_list[$value] = json_decode($config, 1);
+
+            }
+        }
+        $this->assign('title', "游戏列表");
+        $this->assign('project_list', "active"); //菜单样式显示
+        $this->assign('game_list', $game_list); //扫描到的游戏列表
+        $this->display('listproject');
+    }
 
     /**
      * 项目编辑页
@@ -35,90 +36,100 @@ class ProjectController extends Controller{
      * @param string $edit_page
      * @internal param 项目目录名称 $project_name
      */
-	public function edit($project_name, $edit_page=''){
-		if(ProjectService::projectExist($project_name)){
-			//如果存在源项目，则将源项目复制过去
-			if(!ProjectService::projectDevtExist($project_name)){
+    public function edit($project_name, $edit_page = '') {
+        if (ProjectService::projectExist($project_name)) {
+            //如果存在源项目，则将源项目复制过去
+            if (!ProjectService::projectDevtExist($project_name)) {
                 //如果目的项目已经存在编辑，则不覆盖
                 ProjectService::projectCopyToDev($project_name);
             }
-		}else{
-			$this->error("找不到该项目");
-		}
-        $config=ProjectService::readProjectConfig($project_name);//获取指定配置信息
-		$info=ProjectService::readProjectInfoConfig($project_name); //获取指定项目信息
-		
-        if(!$edit_page){
+        } else {
+            $this->error("找不到该项目");
+        }
+        $config = ProjectService::readProjectConfig($project_name);//获取指定配置信息
+        $info = ProjectService::readProjectInfoConfig($project_name); //获取指定项目信息
+
+        if (!$edit_page) {
             $edit_page = $config['edit_page'][0]['id'];
         }
         $pageInfo = $this->getPageInfoById($config['edit_page'], $edit_page);
         //预览url
-        $preview_url="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name.'/'.$pageInfo['page'];
+        $preview_url = "http://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . __ROOT__ . "/" . PROJECT_DEV_NAME . "/" . $project_name . '/' . $pageInfo['page'];
         //预览根目录
-        $preview_base="http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].__ROOT__."/".PROJECT_DEV_NAME."/".$project_name;
-        
+        $preview_base = "http://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . __ROOT__ . "/" . PROJECT_DEV_NAME . "/" . $project_name;
+
         $this->assign('edit_page', $edit_page);
-		$this->assign('preview_url',$preview_url);
-        $this->assign('preview_base',$preview_base);
-		$this->assign('project_list',"active"); //菜单样式显示
-		$this->assign('config',$config);
-		$this->assign('info',$info[$edit_page]);
-		$this->display("edit");
-	}
-    //获取根据page.id 获取该edit_page信息
-    private function getPageInfoById($pages, $page_id){
-       foreach ($pages as $page) {
-           if($page['id'] === $page_id){
-               return $page;
-           }
-       }
-       return null;
+        $this->assign('preview_url', $preview_url);
+        $this->assign('preview_base', $preview_base);
+        $this->assign('project_list', "active"); //菜单样式显示
+        $this->assign('config', $config);
+        $this->assign('info', $info[$edit_page]);
+        $this->display("edit");
     }
-  
-   //项目编辑重置
-   public function reset($project_name){
-     //del_dir
-     File::del_dir(PROJECT_DEV_DIR."/".$project_name);
-     $this->redirect('edit',array("project_name"=>$project_name));
-   }
+
+    //获取根据page.id 获取该edit_page信息
+    private function getPageInfoById($pages, $page_id) {
+        foreach ($pages as $page) {
+            if ($page['id'] === $page_id) {
+                return $page;
+            }
+        }
+        return null;
+    }
+
+    //项目编辑重置
+    public function reset($project_name) {
+        //del_dir
+        File::del_dir(PROJECT_DEV_DIR . "/" . $project_name);
+        $this->redirect('edit', array("project_name" => $project_name));
+    }
+
+    /**
+     * 打包到package/打包成一个压缩包
+     * @param $project_name
+     */
+    public function package($project_name){
+        ProjectService::package($project_name);
+        $this->success("打包完成!");
+    }
 
     /**
      * 更换文字内容
      */
-   public function updateText(){
-       $project_name = I('post.project_name');
-       $file = I('post.file');
-       $regex = I('post.regex','','');
-       $text = I('post.text','','');
-       $edit_page = I('post.edit_page');
+    public function updateText() {
+        $project_name = I('post.project_name');
+        $file = I('post.file');
+        $regex = I('post.regex', '', '');
+        $text = I('post.text', '', '');
+        $edit_page = I('post.edit_page');
 
-       ProjectService::updateText($project_name, $file, $regex, $text);
+        ProjectService::updateText($project_name, $file, $regex, $text);
 
-       $this->redirect('edit',array('project_name'=>$project_name, 'edit_page'=>$edit_page));
-   }
+        $this->redirect('edit', array('project_name' => $project_name, 'edit_page' => $edit_page));
+    }
 
-	/**
-	* 更新项目中的图片
-	*/
-	public function upload_img(){
-		$project_name=I("project_name");
-		$img_path=I("img_path");
-		$img_name=I("img_name");
-		$img_ext=I("img_ext");
-		$upload = new \Think\Upload();// 实例化上传类
-		$upload->exts      =   array($img_ext);// 设置附件上传类型
-		$upload->rootPath=PROJECT_DEV_DIR; //上传的根目录
-		$upload->savePath  = '/'.$project_name.'/'.$img_path; // 相对于根目录，设置附件上传目录
-		$upload->saveName = $img_name; //设置文件上传名称
-		$upload->autoSub=false; //没有上传子目录结构
-		$upload->replace=true;//允许替换文件
+    /**
+     * 更新项目中的图片
+     */
+    public function upload_img() {
+        $project_name = I("project_name");
+        $img_path = I("img_path");
+        $img_name = I("img_name");
+        $img_ext = I("img_ext");
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->exts = array($img_ext);// 设置附件上传类型
+        $upload->rootPath = PROJECT_DEV_DIR; //上传的根目录
+        $upload->savePath = '/' . $project_name . '/' . $img_path; // 相对于根目录，设置附件上传目录
+        $upload->saveName = $img_name; //设置文件上传名称
+        $upload->autoSub = false; //没有上传子目录结构
+        $upload->replace = true;//允许替换文件
 
-		$info=$upload->uploadOne($_FILES['new_img']);
-		if(!$info) {// 上传错误提示错误信息
-			$this->error($upload->getError());
-		}else{// 上传成功 获取上传文件信息
-			// echo $info['savepath'].$info['savename'];
-			$this->redirect('edit',array("project_name"=>$project_name));
-		}
-	}
+        $info = $upload->uploadOne($_FILES['new_img']);
+        if (!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        } else {// 上传成功 获取上传文件信息
+            // echo $info['savepath'].$info['savename'];
+            $this->redirect('edit', array("project_name" => $project_name));
+        }
+    }
 }
