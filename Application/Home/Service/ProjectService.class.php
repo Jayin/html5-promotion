@@ -49,6 +49,15 @@ class ProjectService {
         Zip::pack(C('PROJECT_DEV_DIR') . '/' . $project_name, C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date . '.zip');
     }
 
+    /**
+     * 删除打包项目
+     * @param $project_name
+     */
+    public static function deletePackProject($project_name) {
+        File::del_dir(C('PROJECT_PACKAGE_DIR') . '/' . $project_name);
+        File::del_file(C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '.zip');
+    }
+
     //======== Project
 
     /**

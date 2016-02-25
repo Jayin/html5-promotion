@@ -31,6 +31,28 @@ class ProjectController extends Controller {
     }
 
     /**
+     * 列出打包项目
+     */
+    public function listPackPackage(){
+        $dirArray = File::get_dirs(C('PROJECT_PACKAGE_DIR'));
+
+        $dirList = $dirArray["dir"];
+
+        $game_list = array();
+        foreach ($dirList as $key => $value) {
+            $config = File::read_file(C('PROJECT_PACKAGE_DIR') . "/" . $value . "/config.json");
+            if ($config) {
+                //如果存在config.json 文件则读出
+                $game_list[$value] = json_decode($config, 1);
+                $game_list[$value]['pack_project_name'] = $value; //打包后的文件名
+            }
+        }
+        $this->assign('game_list', $game_list); //扫描到的游戏列表
+        $this->assign('package_list', "active"); //菜单样式显示
+        $this->display('listpackpackage');
+    }
+
+    /**
      * 项目编辑页
      * @param 项目目录名称 $project_name
      * @param string $edit_page
@@ -65,6 +87,15 @@ class ProjectController extends Controller {
         $this->assign('config', $config);
         $this->assign('info', $info[$edit_page]);
         $this->display("edit");
+    }
+
+    /**
+     * 删除打包项目
+     */
+    public function deletePackProject(){
+        $pack_project_name = I('pack_project_name');
+        ProjectService::deletePackProject($pack_project_name);
+        $this->success('删除成功');
     }
 
     //获取根据page.id 获取该edit_page信息

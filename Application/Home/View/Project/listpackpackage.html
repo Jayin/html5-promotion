@@ -1,0 +1,35 @@
+<include file="common/header" />
+<div class="panel panel-default">
+    <div class="panel-heading">项目列表
+        <div class="columns  pull-right">
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>项目名称</th>
+                    <th>项目介绍</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="game_list" item="l">
+                    <tr>
+                        <td>{$l.name}</td>
+                        <td>{$l.description}</td>
+                        <td>
+                            <a class="btn btn-primary" href="/html5-promotion/{:C('PROJECT_PACKAGE_NAME')}/{$l.pack_project_name}/{$l.preview_file}" target="_blank">预览</a>
+                            <a class="btn btn-primary" href="/html5-promotion/{:C('PROJECT_PACKAGE_NAME')}/{$l.pack_project_name}.zip" target="_blank">下载</a>
+                            <form action="{:U('Project/deletePackProject', '', '')}" method="post" accept-charset="utf-8" style="display: inline-block;">
+                                <input type="hidden" name="pack_project_name" value="{$l.pack_project_name}">
+                                <button class="btn btn-danger" onclick="return confirm('确认删除?')">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="common/footer">

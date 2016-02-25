@@ -83,6 +83,15 @@ class File {
 	}
 
     /**
+     * 删除文件
+     * @param $filename
+     * @return bool
+     */
+    static function del_file($filename){
+        return unlink($filename);
+    }
+
+    /**
      * 复制目录
      * @param $surDir 原目录
      * @param $toDir 目标目录
