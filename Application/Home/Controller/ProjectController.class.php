@@ -155,11 +155,16 @@ class ProjectController extends Controller {
         $upload->exts = array($img_ext);// 设置附件上传类型
         $upload->rootPath = PROJECT_DEV_DIR; //上传的根目录
         $upload->savePath = '/' . $project_name . '/' . $img_path; // 相对于根目录，设置附件上传目录
-        $upload->saveName = $img_name; //设置文件上传名称
+        $upload->saveName = 'time'; //设置文件上传名称
         $upload->autoSub = false; //没有上传子目录结构
         $upload->replace = true;//允许替换文件
 
         $info = $upload->uploadOne($_FILES['new_img']);
+        $srcFile = $upload->rootPath.$upload->savePath.$info['savename'];
+        $destFile = $upload->rootPath.$upload->savePath.$img_name.'.'.$img_ext;
+        
+        copy($srcFile, $destFile);
+        File::del_file($srcFile);
         if (!$info) {// 上传错误提示错误信息
             $this->error($upload->getError());
         } else {// 上传成功 获取上传文件信息
