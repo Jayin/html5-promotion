@@ -34,8 +34,8 @@ class ProjectService {
      * @return bool
      */
     public static function updateText($project_name, $file, $regex, $text) {
-        $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
-        $content = preg_replace('/' . addcslashes(quotemeta($regex), '/') . '/i', $text, $content);
+        $content = File::read_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file);
+        $content = str_replace($regex, $text, $content);
         return File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
     }
 
