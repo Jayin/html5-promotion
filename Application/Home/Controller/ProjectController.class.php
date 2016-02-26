@@ -71,8 +71,8 @@ class ProjectController extends Controller {
         } else {
             $this->error("找不到该项目");
         }
-        $config = ProjectService::readProjectConfig($project_name);//获取指定配置信息
-        $info = ProjectService::readProjectInfoConfig($project_name); //获取指定项目信息
+        $config = ProjectService::readProjectDevConfig($project_name);//获取指定配置信息
+        $info = ProjectService::readProjectDevInfoConfig($project_name); //获取指定项目信息
 
         if (!$edit_page) {
             $edit_page = $config['edit_page'][0]['id'];
@@ -136,8 +136,9 @@ class ProjectController extends Controller {
         $regex = I('post.regex', '', '');
         $text = I('post.text', '', '');
         $edit_page = I('post.edit_page');
+        $type = 'texts';
 
-        ProjectService::updateText($project_name, $file, $regex, $text);
+        ProjectService::updateText($project_name, $edit_page, $type, $file, $regex, $text);
 
         $this->redirect('edit', array('project_name' => $project_name, 'edit_page' => $edit_page));
     }
