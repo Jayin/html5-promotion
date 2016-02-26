@@ -17,7 +17,7 @@ class ProjectController extends Controller {
 
         $game_list = array();
         foreach ($dirList as $key => $value) {
-            if($value === '.' || $value ==='..'){
+            if ($value === '.' || $value === '..') {
                 continue;
             }
             $config = File::read_file(C('PROJECT_DIR') . "/" . $value . '/' . C('PROJECT_CONFIG_FILE'));
@@ -36,7 +36,7 @@ class ProjectController extends Controller {
     /**
      * 列出打包项目
      */
-    public function listPackPackage(){
+    public function listPackPackage() {
         $dirArray = File::get_dirs(C('PROJECT_PACKAGE_DIR'));
 
         $dirList = $dirArray["dir"];
@@ -95,7 +95,7 @@ class ProjectController extends Controller {
     /**
      * 删除打包项目
      */
-    public function deletePackProject(){
+    public function deletePackProject() {
         $pack_project_name = I('pack_project_name');
         ProjectService::deletePackProject($pack_project_name);
         $this->success('删除成功');
@@ -122,7 +122,7 @@ class ProjectController extends Controller {
      * 打包到package/打包成一个压缩包
      * @param $project_name
      */
-    public function package($project_name){
+    public function package($project_name) {
         ProjectService::package($project_name);
         $this->success("打包完成!");
     }
