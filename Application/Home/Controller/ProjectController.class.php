@@ -11,13 +11,16 @@ class ProjectController extends Controller {
      * 显示项目列表页
      */
     public function listProject() {
-        $dirArray = File::get_dirs(PROJECT_DIR);
+        $dirArray = File::get_dirs(C('PROJECT_DIR'));
 
         $dirList = $dirArray["dir"];
 
         $game_list = array();
         foreach ($dirList as $key => $value) {
-            $config = File::read_file(PROJECT_DIR . "/" . $value . "/config.json");
+            if($value === '.' || $value ==='..'){
+                continue;
+            }
+            $config = File::read_file(C('PROJECT_DIR') . "/" . $value . '/' . C('PROJECT_CONFIG_FILE'));
             if ($config) {
                 //如果存在config.json 文件则读出
                 $game_list[$value] = json_decode($config, 1);
@@ -40,7 +43,7 @@ class ProjectController extends Controller {
 
         $game_list = array();
         foreach ($dirList as $key => $value) {
-            $config = File::read_file(C('PROJECT_PACKAGE_DIR') . "/" . $value . "/config.json");
+            $config = File::read_file(C('PROJECT_PACKAGE_DIR') . "/" . $value . '/' . C('PROJECT_CONFIG_FILE'));
             if ($config) {
                 //如果存在config.json 文件则读出
                 $game_list[$value] = json_decode($config, 1);
