@@ -8,7 +8,7 @@ init-deploy-environment:
 	chmod 777 $(CHANGE_MODE_FILE)
 
 update-project:
-	git submodule update
+	git submodule update --remote Project
 
 .PHONY: main init-deploy-environment update-html5-promotion-project
 
