@@ -7,7 +7,7 @@
 ### clone 
 
 ```shell
-$ git clone --recursive git@git.coding.net:jayinton/html5-promotion-project.git
+$ git clone --recursive git@git.coding.net:zhlhuang/html5-promotion.git
 ```
 
 ### 部署
