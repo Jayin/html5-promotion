@@ -3,3 +3,5 @@ node_modules/
 
 production.conf.php
 development.conf.php
+
+.idea

@@ -11,3 +11,9 @@
 ```shell
 $  make init-deploy-environment
 ```
+
+### 更新html5游戏项目
+
+```shell
+$ make update-project
+```
