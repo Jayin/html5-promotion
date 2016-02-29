@@ -9,6 +9,8 @@ init-deploy-environment:
 
 update-project:
 	git submodule update --remote Project
+	git add Project 
+	git commit -m 'Uprgrade `Project/` at $(shell date)'
 
 .PHONY: main init-deploy-environment update-html5-promotion-project
 
