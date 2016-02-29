@@ -2,9 +2,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">编辑：{$config.name}
         <div class="columns  pull-right">
-            <a href="{:U('/Project/reset/project_name/'.$config['project_name'])}" class="btn btn-primary">重置</a>
-            <a href="{:U('/Project/package/project_name/'.$config['project_name'])}" class="btn btn-primary">打包</a>
-            <a href="{:U('/Project/listProject')}" class="btn btn-btn-default">返回</a>
+            <a href="{:U('/Home/Project/reset/project_name/'.$config['project_name'])}" class="btn btn-primary">重置</a>
+            <a href="{:U('/Home/Project/package/project_name/'.$config['project_name'])}" class="btn btn-primary">打包</a>
+            <a href="{:U('/Home/Project/listProject')}" class="btn btn-btn-default">返回</a>
         </div>
     </div>
     <div class="panel-body">
@@ -13,13 +13,13 @@
                 <iframe src="{$preview_url}" style="width: 100%;height: 640px;"></iframe>
                 <p class="text-left">预览：<a href="{$preview_url}" target="_blank">网页预览</a><small>&nbsp;PS:用Google浏览器然后按F12 用手机模式查看</small></p>
                 <!-- 二维码 -->
-                <img src="{:U('/Common/createQRcode/','','')}?text={$preview_url}&size=150">
+                <img src="{:U('/Home/Common/createQRcode/','','')}?text={$preview_url}&size=150">
             </div>
             <div class="col-md-8">
                 <div class="tabs" style="border: 1px solid #eee;">
                     <ul class="nav nav-tabs">
                         <foreach name="config.edit_page" item="page">
-                            <li role="presentation" class="<?= $page['id'] == $edit_page ?'active':''; ?>"><a href="<?= U('Project/edit/project_name/'.$config['project_name'].'/edit_page/'.$page['id']); ?>">{$page.name}</a></li>
+                            <li role="presentation" class="<?= $page['id'] == $edit_page ?'active':''; ?>"><a href="<?= U('/Home/Project/edit/project_name/'.$config['project_name'].'/edit_page/'.$page['id']); ?>">{$page.name}</a></li>
                         </foreach>
                     </ul>
                     <div class="tab-content">
@@ -36,7 +36,7 @@
                                     </p>
                                     <p>大小：{$v.size} <span style="color:red;">ps:只允许相同后缀名</span></p>
                                     <div>
-                                        <form action="{:U('/Project/upload_img')}" method="post" enctype="multipart/form-data">
+                                        <form action="{:U('/Home/Project/upload_img')}" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="project_name" value="{$config.project_name}">
                                             <input type="hidden" name="img_path" value="{$v.path}">
                                             <input type="hidden" name="img_name" value="{$v.file_name}">
@@ -58,7 +58,7 @@
                                     <p>{$v.name}：{$v.regex}</p>
                                     <p>替换文件：{$v.file}</p>
                                     <div>
-                                        <form action="{:U('/Project/updateText')}" method="post" accept-charset="utf-8">
+                                        <form action="{:U('/Home/Project/updateText')}" method="post" accept-charset="utf-8">
                                             <input type="hidden" name="project_name" value="{$config.project_name}">
                                             <input type="hidden" name="regex" value="{$v.regex}">
                                             <input type="hidden" name="file" value="{$v.file}">

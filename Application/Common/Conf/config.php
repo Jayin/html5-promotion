@@ -8,7 +8,7 @@ return array(
 	'URL_HTML_SUFFIX' => 'html|phtml', // 伪静态后缀名设置
 	'LOAD_EXT_FILE' => 'functions',
 	'URL_CASE_INSENSITIVE' => true, //不区分URL大小写
-	'MULTI_MODULE' => false,
+	'MULTI_MODULE' => true,
 	'DEFAULT_MODULE' => 'Home', //设置该项目是单模块
 	//数据库
 	'db_type' => 'mysql', // 数据库类型
