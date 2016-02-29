@@ -1,5 +1,5 @@
 <include file="common/header" />
-<div class="panel panel-default">
+<div class="panel">
     <div class="panel-heading">编辑：{$config.name}
         <div class="columns  pull-right">
             <a href="{:U('/Home/Project/reset/project_name/'.$config['project_name'])}" class="btn btn-primary">重置</a>
@@ -14,6 +14,28 @@
                 <p class="text-left">预览：<a href="{$preview_url}" target="_blank">网页预览</a><small>&nbsp;PS:用Google浏览器然后按F12 用手机模式查看</small></p>
                 <!-- 二维码 -->
                 <img src="{:U('/Home/Common/createQRcode/','','')}?text={$preview_url}&size=150">
+
+                <div class="panel panel-info" style="border: 1px solid #bce8f1;">
+                    <div class="panel-heading">插件配置</div>
+                    <div class="panel-body">
+                        <foreach name="plugin_config.plugins" item="plugin_name">
+                            <div>
+                                <h4>{$plugin_config['config'][$plugin_name]['description']}</h4>
+                                <hr>
+                                <form action="{:U('/Plugin/'.$plugin_name.'/update')}" method="post" accept-charset="utf-8">
+                                    <?php foreach($plugin_config['config'][$plugin_name]['input'] as $index => $input): ?>
+                                        <label>{$input['description']}</label>
+                                        <input type="hidden" name="plugin_input_name" value="{$input['name']}">
+                                        <input type="text" class="form-control" name="value">
+                                    <?php endforeach; ?>
+                                    <input type="hidden" name="plugin_name" value="{$plugin_name}">
+                                    <input type="hidden" name="project_name" value="{$config.project_name}">
+                                    <button class="btn btn-success" onclick="return confirm('确认更新')" style="margin: 4px;">更新</button>
+                                </form>
+                            </div>
+                        </foreach>
+                    </div>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="tabs" style="border: 1px solid #eee;">

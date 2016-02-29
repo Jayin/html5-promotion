@@ -73,6 +73,7 @@ class ProjectController extends Controller {
         }
         $config = ProjectService::readProjectDevConfig($project_name);//获取指定配置信息
         $info = ProjectService::readProjectDevInfoConfig($project_name); //获取指定项目信息
+        $plugin_config = ProjectService::readProjectDevPluginConfig($project_name);
 
         if (!$edit_page) {
             $edit_page = $config['edit_page'][0]['id'];
@@ -89,6 +90,7 @@ class ProjectController extends Controller {
         $this->assign('project_list', "active"); //菜单样式显示
         $this->assign('config', $config);
         $this->assign('info', $info[$edit_page]);
+        $this->assign('plugin_config', $plugin_config);
         $this->display("edit");
     }
 
@@ -164,9 +166,9 @@ class ProjectController extends Controller {
         $upload->replace = true;//允许替换文件
 
         $info = $upload->uploadOne($_FILES['new_img']);
-        $srcFile = $upload->rootPath.$upload->savePath.$info['savename'];
-        $destFile = $upload->rootPath.$upload->savePath.$img_name.'.'.$img_ext;
-        
+        $srcFile = $upload->rootPath . $upload->savePath . $info['savename'];
+        $destFile = $upload->rootPath . $upload->savePath . $img_name . '.' . $img_ext;
+
         copy($srcFile, $destFile);
         File::del_file($srcFile);
         if (!$info) {// 上传错误提示错误信息
