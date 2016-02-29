@@ -52,16 +52,22 @@
                             <?php if(count($info['texts'])): ?>
                                 <h3>内容设置</h3>
                             <?php endif; ?>
-
+                            
                             <foreach name="info.texts" item="v">
                                 <div>
                                     <p>{$v.name}：{$v.regex}</p>
-                                    <p>替换文件：{$v.file}</p>
+                                    <p>替换文件：
+                                         <foreach name="v.files" item="f" >
+                                                {$f}
+                                         </foreach>
+                                    </p>
                                     <div>
                                         <form action="{:U('/Home/Project/updateText')}" method="post" accept-charset="utf-8">
                                             <input type="hidden" name="project_name" value="{$config.project_name}">
                                             <input type="hidden" name="regex" value="{$v.regex}">
-                                            <input type="hidden" name="file" value="{$v.file}">
+                                            <foreach name="v.files" item="f" >
+                                                <input type="hidden" name="files[]" value="{$f}">
+                                            </foreach>
                                             <input type="hidden" name="edit_page" value="{$edit_page}">
                                             <input type="text" class="form-control" name="text">
                                             <button class="btn btn-success" onclick="return confirm('确认更新')" style="margin: 4px;">更新</button>
