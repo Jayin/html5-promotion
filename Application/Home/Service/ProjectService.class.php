@@ -55,12 +55,13 @@ class ProjectService {
         for ($index = 0; $index < count($configs); $index++) {
             if ($configs[$index]['regex'] === $regex) {
                 $targetIndex = $index;
+                $projectInfo[$edit_page][$type][$targetIndex]['regex'] = $text;
+                $json_string = json_encode($projectInfo);
+                File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_INFO_FILE'), $json_string);
                 break;
             }
         }
-        $projectInfo[$edit_page][$type][$targetIndex]['regex'] = $text;
-        $json_string = json_encode($projectInfo);
-        File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_INFO_FILE'), $json_string);
+
     }
 
     /**
