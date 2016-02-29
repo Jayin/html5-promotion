@@ -139,7 +139,9 @@ class ProjectController extends Controller {
         $files = I('post.files', array());
 
         foreach ($files as $index => $file) {
-            ProjectService::updateText($project_name, $edit_page, $type, $file, $regex, $text);
+            ProjectService::updateText($project_name, $file, $regex, $text);
+            ProjectService::updateProjectInfoRegex($project_name, $edit_page, $type, $regex, $text);
+
         }
 
         $this->redirect('edit', array('project_name' => $project_name, 'edit_page' => $edit_page));

@@ -31,19 +31,29 @@ class ProjectService {
      * @param $file
      * @param $regex
      * @param $text
-     * @return bool
      */
-    public static function updateText($project_name, $edit_page, $type, $file, $regex, $text) {
+    public static function updateText($project_name, $file, $regex, $text) {
         //目标文件替换
         $content = File::read_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file);
         $content = str_replace($regex, $text, $content);
         File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+    }
+
+    /**
+     * 更新配置文件
+     * @param $project_name
+     * @param $edit_page
+     * @param $type
+     * @param $regex
+     * @param $text
+     */
+    public static function updateProjectInfoRegex($project_name, $edit_page, $type, $regex, $text){
         //更新配置文件
         $projectInfo = self::readProjectDevInfoConfig($project_name);
         $configs = $projectInfo[$edit_page][$type];
         $targetIndex = 0;
         for ($index = 0; $index < count($configs); $index++) {
-            if ($configs[$index]['regex'] === $regex && $configs[$index]['file'] === $file) {
+            if ($configs[$index]['regex'] === $regex) {
                 $targetIndex = $index;
                 break;
             }
@@ -51,7 +61,6 @@ class ProjectService {
         $projectInfo[$edit_page][$type][$targetIndex]['regex'] = $text;
         $json_string = json_encode($projectInfo);
         File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_INFO_FILE'), $json_string);
-        return true;
     }
 
     /**
@@ -137,6 +146,15 @@ class ProjectService {
      */
     public static function readProjectDevInfoConfig($project_name) {
         return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . C('PROJECT_INFO_FILE')), 1);
+    }
+
+    /**
+     * 读取Project plugin.json
+     * @param $project_name
+     * @return mixed
+     */
+    public static function readProjectDevPluginConfig($project_name){
+        return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . C('PROJECT_PLUGIN_FILE')), 1);
     }
 
 }
