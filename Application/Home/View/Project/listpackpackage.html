@@ -21,7 +21,7 @@
                         <td>
                             <a class="btn btn-primary" href="/html5-promotion/{:C('PROJECT_PACKAGE_NAME')}/{$l.pack_project_name}/{$l.preview_file}" target="_blank">预览</a>
                             <a class="btn btn-primary" href="/html5-promotion/{:C('PROJECT_PACKAGE_NAME')}/{$l.pack_project_name}.zip" target="_blank">下载</a>
-                            <form action="{:U('Project/deletePackProject', '', '')}" method="post" accept-charset="utf-8" style="display: inline-block;">
+                            <form action="{:U('/Home/Project/deletePackProject', '', '')}" method="post" accept-charset="utf-8" style="display: inline-block;">
                                 <input type="hidden" name="pack_project_name" value="{$l.pack_project_name}">
                                 <button class="btn btn-danger" onclick="return confirm('确认删除?')">删除</button>
                             </form>
