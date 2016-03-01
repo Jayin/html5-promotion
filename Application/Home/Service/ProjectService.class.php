@@ -34,8 +34,21 @@ class ProjectService {
      */
     public static function updateText($project_name, $file, $regex, $text) {
         //目标文件替换
-        $content = File::read_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file);
+        $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
+        $project_config =  self::readProjectDevConfig($project_name);
+        //先渲染除当前要渲染的($regex)以外的Text
+        foreach($project_config['config'] as $index => $text_config){
+            if($text_config['regex'] !== $regex){
+                //$value 默认值等于regex
+                $value = isset($text_config['value']) ? $text_config['value'] : $text_config['regex'];
+                $content = str_replace($text_config['regex'], $value, $content);
+            }else{
+                $target_index = $index;
+            }
+
+        }
         $content = str_replace($regex, $text, $content);
+
         File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
     }
 
@@ -55,7 +68,7 @@ class ProjectService {
         for ($index = 0; $index < count($configs); $index++) {
             if ($configs[$index]['regex'] === $regex) {
                 $targetIndex = $index;
-                $projectInfo[$edit_page][$type][$targetIndex]['regex'] = $text;
+                $projectInfo[$edit_page][$type][$targetIndex]['value'] = $text;
                 $json_string = json_encode($projectInfo);
                 File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_INFO_FILE'), $json_string);
                 break;

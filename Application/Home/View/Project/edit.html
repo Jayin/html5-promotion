@@ -77,7 +77,7 @@
                             
                             <foreach name="info.texts" item="v">
                                 <div>
-                                    <p>{$v.name}：{$v.regex}</p>
+                                    <p>{$v.name}： <?= isset($v['value'])?$v['value']:$v['regex']; ?></p>
                                     <p>替换文件：
                                          <foreach name="v.files" item="f" >
                                                 {$f}
