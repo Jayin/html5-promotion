@@ -36,4 +36,19 @@ class PluginService {
             }
         }
     }
+
+    /**
+     * 替换文件内容
+     * 由于每个插件的标识唯一的，所以不用做额外处理
+     * @param $project_name
+     * @param $file
+     * @param $regex
+     * @param $text
+     */
+    public static function updateText($project_name, $file, $regex, $text) {
+        //目标文件替换
+        $content = File::read_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file);
+        $content = str_replace($regex, $text, $content);
+        File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+    }
 }
