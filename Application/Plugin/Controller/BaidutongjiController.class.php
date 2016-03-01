@@ -47,7 +47,7 @@ class BaidutongjiController extends PluginController {
         }
 
         foreach ($plugin_input['files'] as $index => $file) {
-            PluginService::updateText($project_name, $file, $plugin_input['regex'], $value);
+            PluginService::updateText($project_name, $file, $plugin_config['regex'], $value);
             PluginService::updatePluginConfigRegex($project_name, $plugin_name, $plugin_input_name, $value);
         }
 
