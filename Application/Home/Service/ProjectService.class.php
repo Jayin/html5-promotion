@@ -35,7 +35,7 @@ class ProjectService {
     public static function updateText($project_name, $edit_page, $file, $regex, $text) {
         //目标文件替换
         $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
-        $res = ProjectInfoConfigService::getEditPageRegexAndValue($project_name, $edit_page,$file);
+        $res = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
         $content = TemplateService::textReplace($content, array_diff($res['regexs'], array($regex)), array_diff($res['replacements'], array($text)));
         $content = TemplateService::textReplace($content, array($regex), array($text));
 
