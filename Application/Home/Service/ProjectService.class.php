@@ -36,18 +36,19 @@ class ProjectService {
         //目标文件替换
         $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
         $project_config =  self::readProjectDevConfig($project_name);
+
+        $regexs = array();
+        $replacements = array();
         //先渲染除当前要渲染的($regex)以外的Text
         foreach($project_config['config'] as $index => $text_config){
             if($text_config['regex'] !== $regex){
                 //$value 默认值等于regex
                 $value = isset($text_config['value']) ? $text_config['value'] : $text_config['regex'];
-                $content = str_replace($text_config['regex'], $value, $content);
-            }else{
-                $target_index = $index;
+                $regex[] = $text_config['regex'];
+                $replacements[] = $value;
             }
-
         }
-        $content = str_replace($regex, $text, $content);
+        $content = TemplateService::textReplace($content, $regexs, $replacements);
 
         File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
     }
