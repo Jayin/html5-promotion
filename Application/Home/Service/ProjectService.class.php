@@ -32,23 +32,12 @@ class ProjectService {
      * @param $regex
      * @param $text
      */
-    public static function updateText($project_name, $file, $regex, $text) {
+    public static function updateText($project_name, $edit_page, $file, $regex, $text) {
         //目标文件替换
         $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
-        $project_config =  self::readProjectDevConfig($project_name);
-
-        $regexs = array();
-        $replacements = array();
-        //先渲染除当前要渲染的($regex)以外的Text
-        foreach($project_config['config'] as $index => $text_config){
-            if($text_config['regex'] !== $regex){
-                //$value 默认值等于regex
-                $value = isset($text_config['value']) ? $text_config['value'] : $text_config['regex'];
-                $regex[] = $text_config['regex'];
-                $replacements[] = $value;
-            }
-        }
-        $content = TemplateService::textReplace($content, $regexs, $replacements);
+        $res = ProjectInfoConfigService::getEditPageRegexAndValue($project_name, $edit_page,$file);
+        $content = TemplateService::textReplace($content, array_diff($res['regexs'], array($regex)), array_diff($res['replacements'], array($text)));
+        $content = TemplateService::textReplace($content, array($regex), array($text));
 
         File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
     }
@@ -63,14 +52,14 @@ class ProjectService {
      */
     public static function updateProjectInfoRegex($project_name, $edit_page, $type, $regex, $text){
         //更新配置文件
-        $projectInfo = self::readProjectDevInfoConfig($project_name);
-        $configs = $projectInfo[$edit_page][$type];
+        $project_info = self::readProjectDevInfoConfig($project_name);
+        $configs = $project_info[$edit_page][$type];
         $targetIndex = 0;
         for ($index = 0; $index < count($configs); $index++) {
             if ($configs[$index]['regex'] === $regex) {
                 $targetIndex = $index;
-                $projectInfo[$edit_page][$type][$targetIndex]['value'] = $text;
-                $json_string = json_encode($projectInfo);
+                $project_info[$edit_page][$type][$targetIndex]['value'] = $text;
+                $json_string = json_encode($project_info);
                 File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_INFO_FILE'), $json_string);
                 break;
             }
