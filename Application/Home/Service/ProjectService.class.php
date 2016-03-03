@@ -4,6 +4,7 @@ namespace Home\Service;
 
 use Common\Lib\File;
 use Common\Lib\Zip;
+use Plugin\Service\PluginService;
 
 /**
  * Class ProjectService
@@ -34,12 +35,25 @@ class ProjectService {
      */
     public static function updateText($project_name, $edit_page, $file, $regex, $text) {
         //目标文件替换
-        $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
-        $res = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
-        $content = TemplateService::textReplace($content, array_diff($res['regexs'], array($regex)), array_diff($res['replacements'], array($text)));
-        $content = TemplateService::textReplace($content, array($regex), array($text));
+        $project_info_config_regex_value = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
+        $plugin_config_regex_value = PluginService::getRegexAndValue($project_name);
+        $targetIndex = -1;
+        foreach ($project_info_config_regex_value['regexs'] as $index => $cur_regex) {
+            if ($cur_regex === $regex) {
+                $targetIndex = $index;
+                break;
+            }
+        }
+        //if found
+        if ($targetIndex >= 0) {
+            array_splice($project_info_config_regex_value['regexs'], $targetIndex, 1);
+            array_splice($project_info_config_regex_value['replacements'], $targetIndex, 1);
 
-        File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+            $content = TemplateService::fetchContent($project_name, $file, $project_info_config_regex_value, $plugin_config_regex_value);
+            $content = TemplateService::textReplace($content, array($regex), array($text));
+            File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+        }
+
     }
 
     /**
@@ -50,7 +64,7 @@ class ProjectService {
      * @param $regex
      * @param $text
      */
-    public static function updateProjectInfoRegex($project_name, $edit_page, $type, $regex, $text){
+    public static function updateProjectInfoRegex($project_name, $edit_page, $type, $regex, $text) {
         //更新配置文件
         $project_info = self::readProjectDevInfoConfig($project_name);
         $configs = $project_info[$edit_page][$type];
@@ -157,7 +171,7 @@ class ProjectService {
      * @param $project_name
      * @return mixed
      */
-    public static function readProjectDevPluginConfig($project_name){
+    public static function readProjectDevPluginConfig($project_name) {
         return json_decode(File::read_file(C('PROJECT_DEV_DIR') . "/" . $project_name . "/" . C('PROJECT_PLUGIN_FILE')), 1);
     }
 
