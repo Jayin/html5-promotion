@@ -4,7 +4,7 @@ namespace Home\Service;
 
 use Common\Lib\File;
 use Common\Lib\Zip;
-use Plugin\Service\PluginService;
+
 
 /**
  * Class ProjectService
@@ -27,33 +27,16 @@ class ProjectService {
     }
 
     /**
-     * 替换文件内容
+     * 渲染项目下的模板文件(内容替换+插件配置)
      * @param $project_name
      * @param $file
-     * @param $regex
-     * @param $text
      */
-    public static function updateText($project_name, $edit_page, $file, $regex, $text) {
-        //目标文件替换
+    public static function renderFile($project_name, $file){
         $project_info_config_regex_value = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
         $plugin_config_regex_value = PluginService::getRegexAndValue($project_name);
-        $targetIndex = -1;
-        foreach ($project_info_config_regex_value['regexs'] as $index => $cur_regex) {
-            if ($cur_regex === $regex) {
-                $targetIndex = $index;
-                break;
-            }
-        }
-        //if found
-        if ($targetIndex >= 0) {
-            array_splice($project_info_config_regex_value['regexs'], $targetIndex, 1);
-            array_splice($project_info_config_regex_value['replacements'], $targetIndex, 1);
 
-            $content = TemplateService::fetchContent($project_name, $file, $project_info_config_regex_value, $plugin_config_regex_value);
-            $content = TemplateService::textReplace($content, array($regex), array($text));
-            File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
-        }
-
+        $content = TemplateService::fetchContent($project_name, $file, $project_info_config_regex_value, $plugin_config_regex_value);
+        File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
     }
 
     /**

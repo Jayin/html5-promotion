@@ -40,37 +40,6 @@ class PluginService {
     }
 
     /**
-     * 替换文件内容
-     * 由于每个插件的标识唯一的，所以不用做额外处理
-     * @param $project_name
-     * @param $file
-     * @param $regex
-     * @param $text
-     */
-    public static function updateText($project_name, $file, $regex, $text) {
-        //目标文件替换
-        $project_info_config_regex_value = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
-        $plugin_config_regex_value = self::getRegexAndValue($project_name);
-        $targetIndex = -1;
-        foreach($plugin_config_regex_value['regexs'] as $index => $plugin_config_regex){
-            if($plugin_config_regex === $regex){
-                $targetIndex = $index;
-                break;
-            }
-        }
-        //if found
-        if($targetIndex >= 0){
-            array_splice($plugin_config_regex_value['regexs'], $targetIndex, 1);
-            array_splice($plugin_config_regex_value['replacements'], $targetIndex, 1);
-
-            $content = TemplateService::fetchContent($project_name, $file, $project_info_config_regex_value, $plugin_config_regex_value);
-            $content = TemplateService::textReplace($content, array($regex), array($text));
-            File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
-
-        }
-    }
-
-    /**
      * 获取该项目需要修改文件$file相关的regex/value
      * @param $project_name
      * @return array
