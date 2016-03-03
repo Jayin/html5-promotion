@@ -18,14 +18,6 @@ use Plugin\Service\PluginService;
 
 class ZhutibangCopyrightController extends PluginController{
 
-    public function index(){
-        $result = PluginService::getRegexAndValue('yimiao');
-        var_dump($result);
-    }
-
-    const YES = '1';
-    const NO = '0';
-
     public function update() {
         $project_name = I('post.project_name');
         $plugin_name = I('post.plugin_name');
