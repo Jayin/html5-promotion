@@ -48,7 +48,7 @@ class BaidutongjiController extends PluginController {
             return;
         }
 
-        foreach ($plugin_input['files'] as $index => $file) {
+        foreach ($plugin_config['files'] as $index => $file) {
             $plugin = new BaidutongjiPlugin();
             $plugin->setPluginConfig($plugin_config);
 

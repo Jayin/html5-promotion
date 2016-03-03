@@ -16,6 +16,10 @@ use Plugin\Plugins\Baidutongji\BaidutongjiPlugin;
 use Plugin\Plugins\ZhutibangCopyright\ZhutibangCopyrightPlugin;
 use Plugin\Service\PluginService;
 
+/**
+ * Class ZhutibangCopyrightController
+ * @package Plugin\Controller
+ */
 class ZhutibangCopyrightController extends PluginController{
 
     public function update() {
@@ -43,7 +47,7 @@ class ZhutibangCopyrightController extends PluginController{
             return;
         }
 
-        foreach ($plugin_input['files'] as $index => $file) {
+        foreach ($plugin_config['files'] as $index => $file) {
             $plugin = new ZhutibangCopyrightPlugin();
             $plugin->setPluginConfig($plugin_config);
             PluginService::updateText($project_name, $file, $plugin_config['regex'], $plugin->getContent());
