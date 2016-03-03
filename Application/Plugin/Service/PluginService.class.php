@@ -10,7 +10,9 @@ namespace Plugin\Service;
 
 
 use Common\Lib\File;
+use Home\Service\ProjectInfoConfigService;
 use Home\Service\ProjectService;
+use Home\Service\TemplateService;
 
 /**
  * 插件相关服务
@@ -28,8 +30,8 @@ class PluginService {
     public static function updatePluginConfigRegex($project_name, $plugin_name, $plugin_input_name, $value) {
         $project_plugin_config = ProjectService::readProjectDevPluginConfig($project_name);
         $inputs = $project_plugin_config['config'][$plugin_name]['input'];
-        foreach($inputs as $index => $input){
-            if($plugin_input_name == $input['name']){
+        foreach ($inputs as $index => $input) {
+            if ($plugin_input_name == $input['name']) {
                 $project_plugin_config['config'][$plugin_name]['input'][$index]['value'] = $value;
                 File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_PLUGIN_FILE'), json_encode($project_plugin_config));
                 break;
@@ -47,8 +49,45 @@ class PluginService {
      */
     public static function updateText($project_name, $file, $regex, $text) {
         //目标文件替换
-        $content = File::read_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file);
-        $content = str_replace($regex, $text, $content);
-        File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+        $project_info_config_regex_value = ProjectInfoConfigService::getFileRegexAndValue($project_name, $file);
+        $plugin_config_regex_value = self::getRegexAndValue($project_name);
+        $targetIndex = -1;
+        foreach($plugin_config_regex_value['regexs'] as $index => $plugin_config_regex){
+            if($plugin_config_regex === $regex){
+                $targetIndex = $index;
+                break;
+            }
+        }
+        //if found
+        if($targetIndex >= 0){
+            array_splice($plugin_config_regex_value['regexs'], $targetIndex, 1);
+            array_splice($plugin_config_regex_value['replacements'], $targetIndex, 1);
+
+            $content = TemplateService::fetchContent($project_name, $file, $project_info_config_regex_value, $plugin_config_regex_value);
+            $content = TemplateService::textReplace($content, array($regex), array($text));
+            File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . $file, $content);
+
+        }
+    }
+
+    /**
+     * 获取该项目需要修改文件$file相关的regex/value
+     * @param $project_name
+     * @return array
+     */
+    public static function getRegexAndValue($project_name) {
+        $project_plugin_config = ProjectService::readProjectDevPluginConfig($project_name);
+        $regexs = array();
+        $replacements = array();
+        foreach ($project_plugin_config['config'] as $plugin_name => $plugin_config) {
+            //先渲染除当前要渲染的($regex)以外的Text
+            $plugin = getPluginByName($plugin_name);
+            $plugin->setPluginConfig($plugin_config);
+            $value = $plugin->getContent();
+            $regexs[] = $plugin_config['regex'];
+            $replacements[] = $value;
+        }
+
+        return array('regexs' => $regexs, 'replacements' => $replacements);
     }
 }

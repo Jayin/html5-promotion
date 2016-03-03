@@ -24,9 +24,23 @@
                                 <hr>
                                 <form action="{:U('/Plugin/'.$plugin_name.'/update')}" method="post" accept-charset="utf-8">
                                     <?php foreach($plugin_config['config'][$plugin_name]['input'] as $index => $input): ?>
-                                        <label>{$input['description']}</label>
-                                        <input type="hidden" name="plugin_input_name" value="{$input['name']}">
-                                        <input type="text" class="form-control" name="value">
+                                        <!-- 输入 -->
+                                        <?php if($input['type']==='text'): ?>
+                                            <label>{$input['description']}</label>
+                                            <input type="hidden" name="plugin_input_name" value="{$input['name']}">
+                                            <input type="text" class="form-control" name="value">
+                                        <?php endif; ?>
+                                        <!-- 单选 -->
+                                        <?php if($input['type']==='radio'): ?>
+                                            <label>{$input['description']}</label>
+                                            <br>
+                                            <input type="hidden" name="plugin_input_name" value="{$input['name']}">
+                                            <input type="radio" class="" name="value" value="1">
+                                            <label>是</label>
+                                            <input type="radio" class="" name="value" value="0">
+                                            <label>否</label>
+                                            <br>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                     <input type="hidden" name="plugin_name" value="{$plugin_name}">
                                     <input type="hidden" name="project_name" value="{$config.project_name}">

@@ -9,6 +9,9 @@
 namespace Home\Service;
 
 
+use Common\Lib\File;
+use Plugin\Service\PluginService;
+
 class TemplateService {
 
     /**
@@ -23,6 +26,22 @@ class TemplateService {
         foreach ($regexs as $index => $regex) {
             $content = str_replace($regex, $replacements[$index], $content);
         }
+
+        return $content;
+    }
+
+    /**
+     * 根据给定的info config和plugin config 去渲染模板
+     * @param $project_name
+     * @param $file
+     * @param array $info_config project config's regexs/replacement
+     * @param array $plugin_config plugin config's regexs/replacement
+     * @return string
+     */
+    public static function fetchContent($project_name, $file, $info_config = array('regexs' => array(), 'replacements' => array()), $plugin_config = array('regexs' => array(), 'replacements' => array())) {
+        $content = File::read_file(C('PROJECT_DIR') . '/' . $project_name . '/' . $file);
+        $content = self::textReplace($content, $info_config['regexs'], $info_config['replacements']);
+        $content = self::textReplace($content, $plugin_config['regexs'], $plugin_config['replacements']);
 
         return $content;
     }
