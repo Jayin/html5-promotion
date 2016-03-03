@@ -10,9 +10,10 @@ namespace Plugin\Controller;
 
 
 use Common\Controller\PluginController;
+use Home\Service\PluginService;
 use Home\Service\ProjectService;
 use Plugin\Plugins\Baidutongji\BaidutongjiPlugin;
-use Plugin\Service\PluginService;
+
 
 /**
  * 百度统计插件

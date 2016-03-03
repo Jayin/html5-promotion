@@ -10,11 +10,10 @@ namespace Plugin\Controller;
 
 use Common\Controller\PluginController;
 
+use Home\Service\PluginService;
 use Home\Service\ProjectService;
-use Plugin\Plugins\Baidutongji\BaidutongjiPlugin;
 
 use Plugin\Plugins\ZhutibangCopyright\ZhutibangCopyrightPlugin;
-use Plugin\Service\PluginService;
 
 /**
  * Class ZhutibangCopyrightController
