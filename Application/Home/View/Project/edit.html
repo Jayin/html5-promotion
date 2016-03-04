@@ -28,16 +28,16 @@
                                         <?php if($input['type']==='text'): ?>
                                             <label>{$input['description']}</label>
                                             <input type="hidden" name="plugin_input_name" value="{$input['name']}">
-                                            <input type="text" class="form-control" name="value">
+                                            <input type="text" class="form-control" name="value" value="<?= $input['value']; ?>">
                                         <?php endif; ?>
                                         <!-- 单选 -->
                                         <?php if($input['type']==='radio'): ?>
                                             <label>{$input['description']}</label>
                                             <br>
                                             <input type="hidden" name="plugin_input_name" value="{$input['name']}">
-                                            <input type="radio" class="" name="value" value="1">
+                                            <input type="radio" class="" name="value" value="1" <?php echo ($input['value'] === '1' ? 'checked': ''); ?> >
                                             <label>是</label>
-                                            <input type="radio" class="" name="value" value="0">
+                                            <input type="radio" class="" name="value" value="0" <?php echo ($input['value'] !== '1' ? 'checked': ''); ?> >
                                             <label>否</label>
                                             <br>
                                         <?php endif; ?>
