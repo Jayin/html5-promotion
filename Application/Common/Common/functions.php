@@ -5,11 +5,13 @@ define(PROJECT_NAME, C("PROJECT_NAME"));
 define(PROJECT_DEV_NAME, C("PROJECT_DEV_NAME"));
 
 
-
-function getPluginByName($plugin_name){
+function getPluginByName($plugin_name)
+{
     $plugins = array(
-        'Baidutongji' => new \Plugin\Plugins\Baidutongji\BaidutongjiPlugin(),
-        'ZhutibangCopyright' => new \Plugin\Plugins\ZhutibangCopyright\ZhutibangCopyrightPlugin()
+        'Baidutongji' => new \Plugin\Plugins\Baidutongji\BaidutongjiPlugin()
+        ,'ZhutibangCopyright' => new \Plugin\Plugins\ZhutibangCopyright\ZhutibangCopyrightPlugin()
+        ,'Accesstime' => new \Plugin\Plugins\Accesstime\AccesstimePlugin()
     );
+
     return $plugins[$plugin_name];
 }

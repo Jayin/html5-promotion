@@ -27,8 +27,23 @@ abstract class Plugin {
         $this->plugin_config = $plugin_config;
     }
 
-
-
-
+    /**
+     * 获取渲染配置后的内容
+     * @return mixed
+     */
     abstract function getContent();
+
+    /**
+     * 根据input name获取对应plugin 的input选项config
+     * @param $input_name
+     * @return null
+     */
+    public function getPluginInputByName($input_name) {
+        foreach($this->plugin_config['input'] as $index => $plugin_input){
+            if($plugin_input['name'] === $input_name){
+                return $plugin_input;
+            }
+        }
+        return null;
+    }
 }
