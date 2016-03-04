@@ -34,8 +34,20 @@ class PluginService {
             if ($plugin_input_name == $input['name']) {
                 $project_plugin_config['config'][$plugin_name]['input'][$index]['value'] = $value;
                 File::write_file(C('PROJECT_DEV_DIR') . '/' . $project_name . '/' . C('PROJECT_PLUGIN_FILE'), json_encode($project_plugin_config));
-                break;
             }
+        }
+    }
+
+    /**
+     * 批量更新input: regex
+     * @param $project_name
+     * @param $plugin_name
+     * @param $plugin_input_names
+     * @param $values
+     */
+    public static function batchUpdatePluginConfigRegex($project_name, $plugin_name, $plugin_input_names, $values){
+        foreach($plugin_input_names as $index => $plugin_input_name){
+            self::updatePluginConfigRegex($project_name, $plugin_name, $plugin_input_name, $values[$index]);
         }
     }
 
