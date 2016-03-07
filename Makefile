@@ -17,5 +17,5 @@ mirror:
 	-git remote add github git@github.com:Jayin/html5-promotion.git
 	-git push github develop
 
-.PHONY: main init-deploy-environment update-html5-promotion-project
+.PHONY: main init-deploy-environment update-html5-promotion-project mirror
 
