@@ -55,7 +55,6 @@ class Zip {
         $z->addEmptyDir($dirName);
         self::folderToZip($sourcePath, $z, strlen("$parentPath/"));
         $z->close();
-        echo "pack ok!";
     }
 
     /**
