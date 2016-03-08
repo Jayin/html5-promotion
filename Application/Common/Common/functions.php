@@ -15,6 +15,7 @@ function getPluginByName($plugin_name)
         'Baidutongji' => new \Plugin\Plugins\Baidutongji\BaidutongjiPlugin()
         ,'ZhutibangCopyright' => new \Plugin\Plugins\ZhutibangCopyright\ZhutibangCopyrightPlugin()
         ,'Accesstime' => new \Plugin\Plugins\Accesstime\AccesstimePlugin()
+        ,'Accessdomain' => new \Plugin\Plugins\Accessdomain\AccessdomainPlugin()
     );
 
     return $plugins[$plugin_name];

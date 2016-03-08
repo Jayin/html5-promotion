@@ -63,6 +63,8 @@ class PluginService {
         foreach ($project_plugin_config['config'] as $plugin_name => $plugin_config) {
             //先渲染除当前要渲染的($regex)以外的Text
             $plugin = getPluginByName($plugin_name);
+            $plugin->setPluginName($plugin_name);
+            $plugin->setProjectName($project_name);
             $plugin->setPluginConfig($plugin_config);
             $value = $plugin->getContent();
             $regexs[] = $plugin_config['regex'];
