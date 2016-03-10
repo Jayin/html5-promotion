@@ -2,6 +2,8 @@
 
 const gulp = require('gulp')
 const child_process = require('child_process')
+const REMOTE = 'api.fenxiangbei.com'
+const REMOTE_DIR = '/var/www/h5/html5-promotion'
 
 let watchDir = [
   './Application/**/*',
@@ -12,7 +14,13 @@ let watchDir = [
 ]
 
 gulp.task('remote-sync', ()=>{
-  child_process.execSync('rsync -r -P ./ root@api.fenxiangbei.com:/var/www/h5/html5-promotion')
+  // console.log(REMOTE+':'+REMOTE_DIR)
+  try{
+    child_process.execSync('rsync -r -P ./ root@'+REMOTE+':'+REMOTE_DIR)  
+  }catch(err){
+    console.log('sync faild🐶')
+  }
+  
 })
 
 gulp.task('watch', ()=>{
