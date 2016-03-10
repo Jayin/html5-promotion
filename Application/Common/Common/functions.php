@@ -17,6 +17,7 @@ function getPluginByName($plugin_name)
         ,'Accesstime' => new \Plugin\Plugins\Accesstime\AccesstimePlugin()
         ,'Accessdomain' => new \Plugin\Plugins\Accessdomain\AccessdomainPlugin()
         ,'Wxuserinfo' => new \Plugin\Plugins\Wxuserinfo\WxuserinfoPlugin()
+        , 'Bottombanner' => new \Plugin\Plugins\Bottombanner\BottombannerPlugin()
     );
 
     return $plugins[$plugin_name];
