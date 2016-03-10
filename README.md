@@ -22,3 +22,9 @@ $  make init-deploy-environment
 ```shell
 $ make update-project
 ```
+
+### 同步到远程
+
+```
+$ gulp remote-sync
+```

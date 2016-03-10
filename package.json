@@ -1,0 +1,18 @@
+{
+  "name": "html5-promotion",
+  "version": "1.0.0",
+  "description": "- 无法二维码显示不出来，无法调用图像函数 在php.ini文件中开启一下扩展 extension=php_gd2.dll",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:zhlhuang/html5-promotion.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
