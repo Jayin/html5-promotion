@@ -80,3 +80,8 @@ NOTE: 只能应用于php文件
 
 拓展：
 - 分析微信用户信息？
+
+## 截图
+
+![图片1](https://dn-coding-net-production-pp.qbox.me/c9ac7ba0-bdec-4cf3-a98f-4cb9449d1a83.png) 
+![图片2](https://dn-coding-net-production-pp.qbox.me/264657f7-33aa-4444-a982-e46024ca4f44.png) 
