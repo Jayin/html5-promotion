@@ -70,7 +70,10 @@ class ProjectService {
      */
     public static function package($project_name) {
         $create_date = date('YmdHis');
-        File::copy_dir(C('PROJECT_DEV_DIR') . '/' . $project_name, C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date);
+        $srcDir = C('PROJECT_DEV_DIR') . '/' . $project_name;
+        $destDir = C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date;
+        File::copy_dir($srcDir, $destDir);
+        File::del_dir($destDir . '/.html5');
         Zip::pack(C('PROJECT_DEV_DIR') . '/' . $project_name, C('PROJECT_PACKAGE_DIR') . '/' . $project_name . '-' . $create_date . '.zip');
     }
 
