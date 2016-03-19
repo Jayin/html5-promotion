@@ -1,0 +1,55 @@
+<style>
+    .interstitialAdv-popup-container{
+        /*font-size: 50px;*/
+        position: absolute;top: 0;left:0;right: 0;bottom: 0;z-index: 1600;
+    }
+    .interstitialAdv-popup-bg{
+        position: absolute;
+        left: .2rem;
+        top: .2rem;
+        right: .2rem;
+        bottom: .2rem;
+        background-color: #000;
+        opacity: .8;
+    }
+    .interstitialAdv-popup-bg-popup-follow{
+        left: 24%;
+        top: 29%;
+        width: 220px;
+        height: 275px;
+        padding-top: 56px;
+        background-color: #fff;
+        text-align: center;
+    }
+    .interstitialAdv-popup-bg-popup-follow img{
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 20px;
+    }
+
+    .interstitialAdv-popup-bg-popup-box{
+        position: absolute;
+        z-index: 20;
+    }
+
+    .interstitialAdv-popup-bg-popup-follow p{
+        margin: 0;
+        padding: 0;
+        color: #000;
+        font: 400 12px/18px Arial, Microsoft Yahei;
+    }
+
+</style>
+<div class="interstitialAdv-popup-container">
+    <!-- pop background   -->
+    <div class="interstitialAdv-popup-bg"></div>
+    <div id="follow" class="interstitialAdv-popup-bg-popup-box interstitialAdv-popup-bg-popup-follow" style="display: block;">
+        <img src="__IMG_URL__" >
+        <p>__CONTENT__</p>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementsByClassName('interstitialAdv-popup-bg')[0].addEventListener('click', function(){
+        document.getElementsByClassName('interstitialAdv-popup-container')[0].style.display = 'none'
+    })
+</script>

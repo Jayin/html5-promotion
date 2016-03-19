@@ -18,6 +18,7 @@ function getPluginByName($plugin_name)
         ,'Accessdomain' => new \Plugin\Plugins\Accessdomain\AccessdomainPlugin()
         ,'Wxuserinfo' => new \Plugin\Plugins\Wxuserinfo\WxuserinfoPlugin()
         , 'Bottombanner' => new \Plugin\Plugins\Bottombanner\BottombannerPlugin()
+        , 'InterstitialAdv' => new \Plugin\Plugins\InterstitialAdv\InterstitialAdvPlugin()
     );
 
     return $plugins[$plugin_name];
