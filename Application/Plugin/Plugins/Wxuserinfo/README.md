@@ -9,7 +9,7 @@
 ```
 {
     "openid":" OPENID",
-    " nickname": NICKNAME,
+    "nickname": NICKNAME,
     "sex":"1",
     "province":"PROVINCE"
     "city":"CITY",
