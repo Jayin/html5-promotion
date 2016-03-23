@@ -8,13 +8,13 @@
 
 ```
 {
-    "openid":" OPENID",
+    "openid":"openid",
     "nickname": NICKNAME,
     "sex":"1",
     "province":"PROVINCE"
     "city":"CITY",
     "country":"COUNTRY",
-    "headimgurl": "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46", 
+    "headimgurl": "http://wx.qlogo.cn/mmopen/MgT4ozD8CN2VFhJbpV7djgWYpDLGicNtAwWBB9ErN8qnxMibm3ZEG0wekZuQcwlDqQBFjLfvOCugEzsITXHiaXdLm5g3Xd84fmg/0", 
     "privilege":[
         "PRIVILEGE1"
         "PRIVILEGE2"
